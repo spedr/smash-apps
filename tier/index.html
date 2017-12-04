@@ -146,7 +146,7 @@
 		var tierIndex;
 		var currentColor;
 		var colorIndex;
-		var currentGame = "mbaacc";
+		var currentGame;
 		var currentGameChars = gameMBAACC;
 		var characters;
 		var resized,tableWidth;
@@ -391,7 +391,7 @@
 		$(document).ready( function() {
 			$("#char").html("<div></div>");
 			if (localStorage.getItem("TierListMakerCode") === null)
-				changeGame(gameSmash4);
+				changeGame(gameMBAACC);
 			else {
 				$("#exportcode").val(localStorage.getItem("TierListMakerCode"));
 				loadCode(localStorage.getItem("TierListMakerCode"));
