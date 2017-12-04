@@ -2,6 +2,7 @@
 <html>
 <head>
 	<!-- Global Site Tag (gtag.js) - Google Analytics -->
+	<meta charset="utf-8"/>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47176820-2"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
@@ -73,12 +74,12 @@
 	<div id="overlay">
 		<div id="modalWrapper">
 			<div id="modal">
-				<h1>SETTINGS</h1>
+				<h1 id="settei">SETTINGS</h1>
 				<span id="close"></span>
-				<p>Choose label color:</p>
+				<p id="labelcolor">Choose label color:</p>
 				<div id="colorselect"><span style="background:#FF7F7F"></span><span style="background:#FFBF7F"></span><span style="background:#FFDF7F"></span><span style="background:#FFFF7F"></span><span style="background:#BFFF7F"></span><span style="background:#7FFF7F"></span><span style="background:#7FFFFF"></span><span style="background:#7FBFFF"></span><span style="background:#7F7FFF"></span><span style="background:#FF7FFF"></span><span style="background:#BF7FBF"></span><span style="background:#3B3B3B"></span><span style="background:#858585"></span><span style="background:#CFCFCF"></span><span style="background:#F7F7F7"></span></div>
-				<p>Label name:</p><textarea id="labelName"></textarea>
-				<p>Row functions:</p>
+				<p id="plabelname">Label name:</p><textarea id="labelName"></textarea>
+				<p id = "rowfunctions">Row functions:</p>
 				<p><button id="deleteRow">Delete row</button> <button id="clearRow">Clear row</button></p>
 				<p><button id="addRowUp">Add row above</button> <button id="addRowBelow">Add row below</button></p>
 			</div>
@@ -106,7 +107,7 @@
 			</div>
 			<div id="screenshotShow">
 				<span id="close"></span>
-				<p>Your image should appear above. You can copy or save this image. Try uploading it to an image hosting website such as <a href="http://imgur.com">Imgur</a>. Alternatively, copy the code below to share an editable version of your tierlist. Just paste a code into the box below and click "Run code" to access it.</p>
+				<p id="shareText">Your image should appear above. You can copy or save this image. Try uploading it to an image hosting website such as <a href="http://imgur.com">Imgur</a>. Alternatively, copy the code below to share an editable version of your tierlist. Just paste a code into the box below and click "Run code" to access it.</p>
 			<textarea id="exportcode" cols="30" rows="8"></textarea><div><button id="runCode">Run code</button></div>
 			</div>
 		</div>
@@ -150,6 +151,44 @@
 		var currentGameChars = gameMBAACC;
 		var characters;
 		var resized,tableWidth;
+		var language = "en";
+		var shareTextRestore = document.getElementById("shareText").innerHTML;
+		//var helpIdentifierRestore = document.getElementById("helpIdentifier").innerHTML;
+
+		if (language == "jp") {
+			document.getElementById("help").innerHTML = "ヘルプ";
+			document.getElementById("screenshot").innerHTML = "共有する";
+			document.getElementById("hidebuttons").innerHTML = "操作ボタン非表示";
+			document.getElementById("reset").innerHTML = "初期位置に戻す";
+			var p = "<p>";
+			var closep = "</p>";
+			var h = "<h1>";
+			var closeh1 = "</h1>";
+			var br = "<br>";
+			var ahref = "<a href ='";
+			var closea = "</a>";
+			var str = h + "ヘルプ" + closeh1;
+			str+= "<span id='close'></span>";
+			str+= p + "Melty Blood Current Codeのキャラクターランクのリスト作成サイトです。" + br + "ほぼ全てのコードが、" + ahref + "http://jcal.zone/smash-apps/tier/'" + ">有名なスマブラ4ランクメーカー</a>の「j calzone」様より引用させていただいています。" + closep;
+			str+= p + "<strong>作成したリストを保存することができます。</strong>" + br + "サイト上部の「共有する」ボタンを押すと画像つきポップアップが表示されるので、右クリックからダウンロード(保存)して画像投稿サイトなどにアップロードできます(PCによる操作を想定)。" + br + "スマホなどにより上記方法が正常に動作しない場合、「操作ボタン非表示」ボタンを押すことでよりスッキリします。" + closep;
+			str+= p  + "<strong>作成したリストを他のユーザーが編集可能になるコードを共有できます。</strong>" + br + "サイト上部の「共有する」ボタンを押し、表示されたポップアップ下部のテキストボックスに表示されているコード文をコピーし、貼り付けて共有してください。" + br + "共有されたコードをテキストボックスに貼り付け、最下部にある「コードを実行する」ボタンを押すとリストがサイトに反映され編集可能になります。" + closep;
+			str += p + "<strong>オートセーブに対応しています。</strong>キャラクター画像をリストへドラッグ＆ドロップすると直ちに保存され、次回アクセス時には前回の編集内容が再度表示されます。" + closep;
+			str += p + "リストの各段の横に歯車ボタンがあります。クリックすると<strong>各段の色及び名称の変更、段の追加及び削除、段にいるキャラクターの削除</strong>が可能です。" + closep;
+			str += p + "歯車ボタンの横の上下ボタンを押すと、<strong>その段を上下に移動できます。</strong>" + closep;
+			str += p + "段の名称変更については、<strong>リストのラベルを直接クリックすることでも可能です。</strong>" + closep;
+			str += p + "最初からやり直す場合は、「初期位置に戻す」ボタンを押してください。" + closep;
+			str += p + "質問や要望は、Twitterアカウント「" + ahref + "http://twitter.com/shaokthx'" + ">@shaokthx</a>」へどうぞ。" + closep;
+			document.getElementById("helpMenu").innerHTML = str;
+
+			document.getElementById("deleteRow").innerHTML = "段を削除する";
+			document.getElementById("addRowUp").innerHTML = "新しい段を上に追加する";
+			document.getElementById("addRowBelow").innerHTML = "新しい段を下に追加する";
+			document.getElementById("clearRow").innerHTML = "段にいるキャラクターをリセットする";
+			document.getElementById("settei").innerHTML = "設定";
+			document.getElementById("labelcolor").innerHTML = "ラベルのカラー";
+			document.getElementById("plabelname").innerHTML = "ラベルの名称";
+			document.getElementById("rowfunctions").innerHTML = "段の操作";
+		}
 
 		for (var i = 0; i < tierDefaults.length; i++) {
 			tierDefaults[i][0].find(".labelHolder").css("background",colors[tierDefaults[i][1]]);
@@ -231,11 +270,19 @@
 			} else if(clicked == "hidebuttons") { // hide the buttons
 				if (screenshotMode) {
 					$("td:last-of-type").css("display","table-cell");
-					$("#hidebuttons").text("Hide controls");
+					if(language =="jp"){
+						$("#hidebuttons").text("操作ボタン非表示");
+					}else{
+						$("#hidebuttons").text("Hide controls");
+					}
 					screenshotMode = false;
 				} else {
 					$("td:last-of-type").css("display","none");
-					$("#hidebuttons").text("Show controls");
+					if(language == "jp"){
+						$("#hidebuttons").text("操作ボタン表示");
+					}else {
+						$("#hidebuttons").text("Show controls");
+					}
 					screenshotMode = true;
 				}
 			} else if(clicked == "clearRow") { // put characters in this row back into the box
@@ -278,6 +325,8 @@
 		$("#labelName").bind("input propertychange", function() {
 			currentTier.find(".label").html($("#labelName").val().replace(/\n/g, "<br>"));
 		});
+
+
 
 		// http://stackoverflow.com/a/3971432 thanks Zack Katz :D
 		function rgb2hex(rgb) {
@@ -407,6 +456,82 @@
 			$('<style>* { background: url(\'img/ssb4r/corrinm.png\'); }</style>').appendTo('head');
 			changeGame(gameCorrinMode);
 		}
+	</script>
+	<div class="navbar">
+	<a id = "english" href="#">English</a>
+	<a id = "japanese" href="#">日本語</a>
+	</div>
+	<script>
+	function changeJP() {
+		language = "jp";
+		document.getElementById("help").innerHTML = "ヘルプ";
+		document.getElementById("screenshot").innerHTML = "共有する";
+		document.getElementById("hidebuttons").innerHTML = "操作ボタン非表示";
+		document.getElementById("reset").innerHTML = "初期位置に戻す";
+		var p = "<p>";
+		var closep = "</p>";
+		var h = "<h1>";
+		var closeh1 = "</h1>";
+		var br = "<br>";
+		var ahref = "<a href ='";
+		var closea = "</a>";
+		var str = h + "ヘルプ" + closeh1;
+		str+= "<span id='close'></span>";
+		str+= p + "Melty Blood Current Codeのキャラクターランクのリスト作成サイトです。" + br + "ほぼ全てのコードが、" + ahref + "http://jcal.zone/smash-apps/tier/'" + ">有名なスマブラ4ランクメーカー</a>の「j calzone」様より引用させていただいています。" + closep;
+		str+= p + "<strong>作成したリストを保存することができます。</strong>" + br + "サイト上部の「共有する」ボタンを押すと画像つきポップアップが表示されるので、右クリックからダウンロード(保存)して画像投稿サイトなどにアップロードできます(PCによる操作を想定)。" + br + "スマホなどにより上記方法が正常に動作しない場合、「操作ボタン非表示」ボタンを押すことでよりスッキリします。" + closep;
+		str+= p  + "<strong>作成したリストを他のユーザーが編集可能になるコードを共有できます。</strong>" + br + "サイト上部の「共有する」ボタンを押し、表示されたポップアップ下部のテキストボックスに表示されているコード文をコピーし、貼り付けて共有してください。" + br + "共有されたコードをテキストボックスに貼り付け、最下部にある「コードを実行する」ボタンを押すとリストがサイトに反映され編集可能になります。" + closep;
+		str += p + "<strong>オートセーブに対応しています。</strong>キャラクター画像をリストへドラッグ＆ドロップすると直ちに保存され、次回アクセス時には前回の編集内容が再度表示されます。" + closep;
+		str += p + "リストの各段の横に歯車ボタンがあります。クリックすると<strong>各段の色及び名称の変更、段の追加及び削除、段にいるキャラクターの削除</strong>が可能です。" + closep;
+		str += p + "歯車ボタンの横の上下ボタンを押すと、<strong>その段を上下に移動できます。</strong>" + closep;
+		str += p + "段の名称変更については、<strong>リストのラベルを直接クリックすることでも可能です。</strong>" + closep;
+		str += p + "最初からやり直す場合は、「初期位置に戻す」ボタンを押してください。" + closep;
+		str += p + "質問や要望は、Twitterアカウント「" + ahref + "http://twitter.com/shaokthx'" + ">@shaokthx</a>」へどうぞ。" + closep;
+		document.getElementById("helpMenu").innerHTML = str;
+
+		document.getElementById("deleteRow").innerHTML = "段を削除する";
+		document.getElementById("addRowUp").innerHTML = "新しい段を上に追加する";
+		document.getElementById("addRowBelow").innerHTML = "新しい段を下に追加する";
+		document.getElementById("clearRow").innerHTML = "段にいるキャラクターをリセットする";
+		document.getElementById("settei").innerHTML = "設定";
+		document.getElementById("labelcolor").innerHTML = "ラベルのカラー";
+		document.getElementById("plabelname").innerHTML = "ラベルの名称";
+		document.getElementById("rowfunctions").innerHTML = "段の操作";
+		document.getElementById("shareText").innerHTML = "画像が上部に表示されます。こちらをダウンロード(保存)してください。<br>画像アップロードサイトの「" + ahref + "https://imgur.com/'" + ">Imgur</a>」などを利用するか、他のユーザーが編集可能になるコードが下記(テキストボックス)に表示されているのでコピー＆ペーストで共有しましょう。テキストボックスへコードを貼り付け、「コードを実行する」をクリックすれば反映されます。";
+		document.getElementById("runCode").innerHTML = "コードを実行する";
+	}
+	function changeEN(){
+		language = "en";
+		//document.getElementById("helpIdentifier").innerHTML = helpIdentifierRestore;
+		document.getElementById("screenshot").innerHTML = "Share";
+		document.getElementById("help").innerHTML = "Help";
+		document.getElementById("hidebuttons").innerHTML = "Hide controls";
+		document.getElementById("reset").innerHTML = "Reset";
+		document.getElementById("deleteRow").innerHTML = "Delete row";
+		document.getElementById("addRowUp").innerHTML = "Add row above";
+		document.getElementById("addRowBelow").innerHTML = "Add row below";
+		document.getElementById("clearRow").innerHTML = "Clear row";
+		document.getElementById("settei").innerHTML = "SETTINGS";
+		document.getElementById("labelcolor").innerHTML = "Choose label color:";
+		document.getElementById("plabelname").innerHTML = "Label name:";
+		document.getElementById("rowfunctions").innerHTML = "Row functions:";
+		document.getElementById("shareText").innerHTML = shareTextRestore;
+		document.getElementById("runCode").innerHTML = "Run code";
+		var ahref = "<a href ='";
+		var str = "<h1>HELP</h1>";
+		str += "<p>This is a Melty Blood Current Code Tier List Maker. Almost all of the code is forked from the popular Smash 4 Tier List Maker made by the excellent " + ahref + "https://github.com/quetzle'" + ">quetzle at GitHub</a>.</p>";
+		str += "<p><strong>You can take screenshots of your tierlist.</strong> To take a screenshot, click on the &quot;Share&quot; button in the top bar. A popup should appear that contains an image of your tierlist. You can copy or save this image to then upload to an image hosting site. If the screenshot feature does not work for you, you can click the &quot;Hide controls&quot; button to make the list look cleaner.</p>"
+		str += "<p><strong>You can share editable versions of your tierlist.</strong> Click on the &quot;Share&quot; button and you will see a textbox that contains a code. Copy and share this with others so that they can edit your tierlist.</p>"
+		str += "<p><strong>Your latest tierlist autosaves to your device.</strong> As soon as you drag a character image, your tierlist will be saved. Any time you reopen it you will be able to access your previous tierlist.</p>"
+		str += "<p>There is a gear next to each tier in the tierlist. (If you don't see this gear, click on the &quot;Toggle screenshot mode&quot; button in the top bar. If you click on it, you can <strong>change the color of the tier label, add rows, delete the row, or remove all of the characters currently in the row.</strong></p>"
+		str += "<p>Next to the gear are 2 arrows, pointed up and down. Clicking these will let you <strong>move a tier up and down a level</strong>.</p>"
+		str += "<p><strong>You can change the name of the tier.</strong> Click on the tier label, you can type in there. If this doesn't work, you can change it in the textbox in the corresponding settings menu.</p>"
+		str += "<p>If you want to <strong>completely start over</strong>, just refresh the page.</a>"
+		str += "<p>For any further questions or desired additions, you may ask " + ahref + "https://twitter.com/shaokthx'" + ">@shaokthx at Twitter</a>.</a>"
+		document.getElementById("helpMenu").innerHTML = str;
+
+	}
+	$('#japanese').click(function(){ changeJP(); return false; });
+	$('#english').click(function(){ changeEN(); return false; });
 	</script>
 </body>
 </html>
