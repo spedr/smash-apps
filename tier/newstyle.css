@@ -12,7 +12,7 @@ body {
 }
 
 #controls {
-	width: 774px;
+	width: 950px;
 	height: 80px;
 	margin: 0 auto;
 	padding-right: 1px;
@@ -55,6 +55,7 @@ tr {
 	line-height: 0px;
 }
 
+
 table {
 	min-width: 1000px;
 	margin-left: auto;
@@ -69,6 +70,8 @@ table {
 	height: 64px;
 	transition: background .3s;
 }
+
+
 
 .label {
 	min-width: 56px;
@@ -159,6 +162,8 @@ div#moveDown {
 img {
 	height: 64px;
 }
+
+
 
 .character {
 	display:inline-block;

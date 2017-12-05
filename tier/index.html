@@ -12,14 +12,14 @@
 	  gtag('config', 'UA-47176820-2');
 	</script>
 	<link rel="icon" type="image/x-icon" href= "icon.png"/>
-	<title>Tier List Maker - Smash Apps</title>
+	<title>Tier List Maker - MBAACC</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,100italic" rel="stylesheet" type="text/css">
 	<link href="newstyle.css" rel="stylesheet">
 	<link href="dragula.min.css" rel="stylesheet">
 </head>
 <body>
 	<div id="controls">
-		<h1>TIER LIST MAKER - <span>neat</span></h1>
+		<h1>TIER LIST MAKER - MBAACC</h1>
 		<div id="buttons">
 			<button id="screenshot">Share</button>
 			<button id="hidebuttons">Hide controls</button>
@@ -154,41 +154,6 @@
 		var language = "en";
 		var shareTextRestore = document.getElementById("shareText").innerHTML;
 		//var helpIdentifierRestore = document.getElementById("helpIdentifier").innerHTML;
-
-		if (language == "jp") {
-			document.getElementById("help").innerHTML = "ヘルプ";
-			document.getElementById("screenshot").innerHTML = "共有する";
-			document.getElementById("hidebuttons").innerHTML = "操作ボタン非表示";
-			document.getElementById("reset").innerHTML = "初期位置に戻す";
-			var p = "<p>";
-			var closep = "</p>";
-			var h = "<h1>";
-			var closeh1 = "</h1>";
-			var br = "<br>";
-			var ahref = "<a href ='";
-			var closea = "</a>";
-			var str = h + "ヘルプ" + closeh1;
-			str+= "<span id='close'></span>";
-			str+= p + "Melty Blood Current Codeのキャラクターランクのリスト作成サイトです。" + br + "ほぼ全てのコードが、" + ahref + "http://jcal.zone/smash-apps/tier/'" + ">有名なスマブラ4ランクメーカー</a>の「j calzone」様より引用させていただいています。" + closep;
-			str+= p + "<strong>作成したリストを保存することができます。</strong>" + br + "サイト上部の「共有する」ボタンを押すと画像つきポップアップが表示されるので、右クリックからダウンロード(保存)して画像投稿サイトなどにアップロードできます(PCによる操作を想定)。" + br + "スマホなどにより上記方法が正常に動作しない場合、「操作ボタン非表示」ボタンを押すことでよりスッキリします。" + closep;
-			str+= p  + "<strong>作成したリストを他のユーザーが編集可能になるコードを共有できます。</strong>" + br + "サイト上部の「共有する」ボタンを押し、表示されたポップアップ下部のテキストボックスに表示されているコード文をコピーし、貼り付けて共有してください。" + br + "共有されたコードをテキストボックスに貼り付け、最下部にある「コードを実行する」ボタンを押すとリストがサイトに反映され編集可能になります。" + closep;
-			str += p + "<strong>オートセーブに対応しています。</strong>キャラクター画像をリストへドラッグ＆ドロップすると直ちに保存され、次回アクセス時には前回の編集内容が再度表示されます。" + closep;
-			str += p + "リストの各段の横に歯車ボタンがあります。クリックすると<strong>各段の色及び名称の変更、段の追加及び削除、段にいるキャラクターの削除</strong>が可能です。" + closep;
-			str += p + "歯車ボタンの横の上下ボタンを押すと、<strong>その段を上下に移動できます。</strong>" + closep;
-			str += p + "段の名称変更については、<strong>リストのラベルを直接クリックすることでも可能です。</strong>" + closep;
-			str += p + "最初からやり直す場合は、「初期位置に戻す」ボタンを押してください。" + closep;
-			str += p + "質問や要望は、Twitterアカウント「" + ahref + "http://twitter.com/shaokthx'" + ">@shaokthx</a>」へどうぞ。" + closep;
-			document.getElementById("helpMenu").innerHTML = str;
-
-			document.getElementById("deleteRow").innerHTML = "段を削除する";
-			document.getElementById("addRowUp").innerHTML = "新しい段を上に追加する";
-			document.getElementById("addRowBelow").innerHTML = "新しい段を下に追加する";
-			document.getElementById("clearRow").innerHTML = "段にいるキャラクターをリセットする";
-			document.getElementById("settei").innerHTML = "設定";
-			document.getElementById("labelcolor").innerHTML = "ラベルのカラー";
-			document.getElementById("plabelname").innerHTML = "ラベルの名称";
-			document.getElementById("rowfunctions").innerHTML = "段の操作";
-		}
 
 		for (var i = 0; i < tierDefaults.length; i++) {
 			tierDefaults[i][0].find(".labelHolder").css("background",colors[tierDefaults[i][1]]);
