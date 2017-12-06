@@ -101,6 +101,7 @@ table {
   font-size: 17px;
 }
 
+
 .tier {
 	width: 960px;
 	min-height: 64px;
@@ -153,10 +154,52 @@ div#moveDown {
 	opacity: .5;
 }
 
+
+#charcenter {
+  top: 0px;
+  left: 0px;
+  width: 550px;
+ max-width:750px;
+ line-height: 0px;
+ margin:0 auto;
+ position: relative;
+ float:left;
+}
+
 #char {
+  display: block;
 	width: 768px;
 	margin: 10px auto;
 	line-height: 0px;
+}
+
+#charbox{
+  top: 10px;
+  width: 1750px;
+  margin:0 auto;
+  position: relative;
+ }
+
+#charleft {
+  position: relative;
+  float:left;
+  top: 0px;
+  left: 0px;
+  width: 550px;
+  height: 192px;
+  margin-right: 10px;
+  line-height: 0px;
+}
+
+#charright {
+  position: relative;
+  float:left;
+  top: 0px;
+  left: 13px;
+  width: 550px;
+  height: 192px;
+  margin:0 auto;
+ line-height: 0px;
 }
 
 img {
