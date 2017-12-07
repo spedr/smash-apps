@@ -147,7 +147,7 @@
 		var singleChar = "<div class='character'></div>";
 
 		var gameMBAACC = ["mbaacc","akiha","aoko","arcueid","ciel","hime","hisui","hisukoha","kohaku","kohamech","kouma","len","mechhisui","miyako","nanaya","necoarc","necochaos","necomech","nero","pciel","ries","roa","ryougishiki","satsuki","seifukuakiha","shiki","sion","tatarision","vermillion","warakia","warc","whitelen"];
-		var gameMBAACC_moon = ["mbaacc_moon","cakiha","caoko","carc","cciel","chime","chisui","ckohaku","cmaids","ckohamech","ckouma","clen","cmechhisui","cmiyako","cnanaya","cnecoarc","cnecochaos","cnecomech","cnero","cpciel","cries","croa","cryougi","csatsuki","cseifuku","cshiki","csion","ctatari","cvakiha","cwarakia","cwarc","cwhitelen","hakiha","haoko","harc","hciel","hhime","hhisui","hkohaku","hmaids","hkohamech","hkouma","hlen","hmechhisui","hmiyako","hnanaya","hnecoarc","hnecochaos","hnecomech","hnero","hpciel","hries","hroa","hryougi","hsatsuki","hseifuku","hshiki","hsion","htatari","hvakiha","hwarakia","hwarc","hwhitelen","fakiha","faoko","farc","fciel","fhime","fhisui","fkohaku","fmaids","fkohamech","fkouma","flen","fmechhisui","fmiyako","fnanaya","fnecoarc","fnecochaos","fnecomech","fnero","fpciel","fries","froa","fryougi","fsatsuki","fseifuku","fshiki","fsion","ftatari","fvakiha","fwarakia","fwarc","fwhitelen",];
+		var gameMBAACC_moon = ["mbaacc_moon","akiha","aoko","arcueid","ciel","hime","hisui","hisukoha","kohaku","kohamech","kouma","len","mechhisui","miyako","nanaya","necoarc","necochaos","necomech","nero","pciel","ries","roa","ryougishiki","satsuki","seifukuakiha","shiki","sion","tatarision","vermillion","warakia","warc","whitelen"];
 		var singleTier = "<tr><td class='labelHolder' contenteditable='true' style='background-color:#FFFF7F'><span class='label'>NEW</span></td><td><div class='tier sort' id='rows'><div class='hiddenkid'></div></div></td><td><div id='settings'></div><div id='moveButtons'><div id='moveUp'></div><div id='moveDown'></div></div></td></tr>";
 
 		var screenshotMode = false;
@@ -386,30 +386,44 @@
 		}
 
 		function enableMoons(game) {
-			//$("#char").css("width", "550px");
 			currentGameChars = [];
 			currentGameChars = game;
 			currentGame = game[0];
 			$(".character").each( function() {
 				$(this).remove();
 			});
-			for (var i = 1; i < game.length; i++) {
-				if(i<32){
-					$("#charcenter div:last-child").after(singleChar);
-					$("#charcenter div:last-child").css("background-image","url(img/"+currentGame+"/"+game[i]+".png)");
-					$("#charcenter div:last-child").attr("id",i);
-				}else if(i<63){
-					$("#charleft div:last-child").after(singleChar);
-					$("#charleft div:last-child").css("background-image","url(img/"+currentGame+"/"+game[i]+".png)");
-					$("#charleft div:last-child").attr("id",i);
-				}else{
-					$("#charright div:last-child").after(singleChar);
-					$("#charright div:last-child").css("background-image","url(img/"+currentGame+"/"+game[i]+".png)");
-					$("#charright div:last-child").attr("id",i);
+			for (var i = 1; i < 3*(game.length-1)+1; i++) {
+				if (i < game.length) {
+					var tempMoon = "cres";
+					var tempPos = "left";
+					var j = i;
+				} else if (i < 2*(game.length-1)+1) {
+					var tempMoon = "half";
+					var tempPos = "center";
+					var j = i - (game.length-1);
+				} else {
+					var tempMoon = "full";
+					var tempPos = "right";
+					var j = i - 2*(game.length-1);
 				}
+				$("#char"+tempPos).append(singleChar);
+				$("#char"+tempPos+" div.character:last").css("background-image","url(img/"+currentGame+"/"+game[j]+".png)");
+				$("#char"+tempPos+" div.character:last").css("position","relative");
+				$("#char"+tempPos+" div.character:last").attr("id",i);
+				$("#char"+tempPos+" div.character:last").append("<div class='moonOverlay'></div>");
+				$("#char"+tempPos+" div.moonOverlay:last").css("background-image","url(img/"+currentGame+"/"+tempMoon+".png)");
+				$("#char"+tempPos+" div.moonOverlay:last").css({
+					"height": "35%",
+					"width": "35%",
+					"background-size": "100% 100%",
+					"position": "absolute",
+					"bottom": 0,
+					"right": 0
+				});
 			}
 			updateTiers();
 		}
+
 
 		function toCode() { // format game==label|color|char1|char2|...==label|color|char1|char2|...==...
 			var codeColors = [], labels = [], currentChars = [], shareCode = "";
@@ -471,13 +485,8 @@
 				$("tr:last-of-type").find(".labelHolder").css("background-color",colors[processedCode[i][1]]);
 				$("tr:last-of-type").find(".label").html(processedCode[i][0]);
 				for (var c = 2; c < processedCode[i].length; c++) {
-					$("tr:last-of-type").find(".tier div:last-child").after(singleChar);
-					$("tr:last-of-type").find(".tier div:last-child").css("background-image","url(img/"+processedCode[0]+"/"+currentGameChars[processedCode[i][c]]+".png)");
-					$("tr:last-of-type").find(".tier div:last-child").attr("id",processedCode[i][c]);
-					$("#char #"+processedCode[i][c]).remove();
-					$("#charleft #"+processedCode[i][c]).remove();
-					$("#charright #"+processedCode[i][c]).remove();
-					$("#charcenter #"+processedCode[i][c]).remove();
+					var removedChar = $("#charbox #"+processedCode[i][c]).remove();
+					$("tr:last-of-type").find(".tier").append(removedChar);
 				}
 			}
 		}
